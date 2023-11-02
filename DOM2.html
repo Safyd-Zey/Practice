@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <span class="error" id="usernameError"></span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <span class="error" id="passwordError"></span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" required>
+            <span class="error" id="confirmPasswordError"></span>
+        </div>
+        <button id="registerButton" disabled>Register</button>
+    </form>
+    <div id="registrationMessage"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const registerButton = document.getElementById('registerButton');
+            const registrationForm = document.getElementById('registrationForm');
+            const registrationMessage = document.getElementById('registrationMessage');
+
+            function showError(input, errorElement, message) {
+                errorElement.textContent = message;
+                input.classList.add('errorInput');
+            }
+
+            function clearError(input, errorElement) {
+                errorElement.textContent = '';
+                input.classList.remove('errorInput');
+            }
+
+            function checkPasswordsMatch() {
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    showError(confirmPasswordInput, confirmPasswordError, "Passwords do not match");
+                    return false;
+                }
+                return true;
+            }
+
+            function checkInputs() {
+                const usernameValue = usernameInput.value.trim();
+                const passwordValue = passwordInput.value.trim();
+                const confirmPasswordValue = confirmPasswordInput.value.trim();
+
+                if (usernameValue === '') {
+                    showError(usernameInput, usernameError, "Username is required");
+                } else {
+                    clearError(usernameInput, usernameError);
+                }
+
+                if (passwordValue === '') {
+                    showError(passwordInput, passwordError, "Password is required");
+                } else {
+                    clearError(passwordInput, passwordError);
+                }
+
+                if (confirmPasswordValue === '') {
+                    showError(confirmPasswordInput, confirmPasswordError, "Please confirm the password");
+                } else {
+                    clearError(confirmPasswordInput, confirmPasswordError);
+                }
+
+                if (usernameValue !== '' && passwordValue !== '' && confirmPasswordValue !== '') {
+                    if (checkPasswordsMatch()) {
+                        registerButton.disabled = false;
+                    } else {
+                        registerButton.disabled = true;
+                    }
+                } else {
+                    registerButton.disabled = true;
+                }
+            }
+
+            usernameInput.addEventListener('input', checkInputs);
+            passwordInput.addEventListener('input', checkInputs);
+            confirmPasswordInput.addEventListener('input', checkInputs);
+
+            registrationForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (checkPasswordsMatch()) {
+                    registrationMessage.textContent = "User registered successfully!";
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
