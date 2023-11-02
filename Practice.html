@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Practice</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Add any necessary CSS styles here */
+        #box {
+            background: #ccc;
+            height: 100px;
+            width: 100px;
+            margin: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--Password task-->
+    <script>
+        $("body").on('click', '.toggle-password', function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $("#pass_log_id");
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+                document.getElementById("pass").innerHTML = "Hide";
+            } else {
+                input.attr("type", "password");
+                document.getElementById("pass").innerHTML = "Show";
+            }
+
+
+        });
+    </script>
+    <input type="password" id="pass_log_id" />
+    <button id="pass" toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password">Show</button>
+    <br /> <br />
+    <!--Checkbox-->
+    <input type="checkbox" id="agreeCheckbox"> I agree to the terms
+    <button type="submit" id="submitButton" disabled>Submit</button>
+
+    <script>
+        $(document).ready(function () {
+            $('#agreeCheckbox').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#submitButton').prop('disabled', false);
+                } else {
+                    $('#submitButton').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+    <br /><br />
+    <!--Image-->
+    <button id="changeBackground">Change Background Image</button>
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#changeBackground').click(function () {
+                $('body').css('background-image', 'url("https://images.prom.ua/3720368816_foto-fon-vinilovyj-12075.jpg")');
+            });
+        });
+
+    </script>
+    <br /><br />
+    <!--Count of words-->
+    <form>
+        <label>Maximum 10 characters</label>
+        <textarea id="textarea" maxlength="10"></textarea>
+        <span id="charCount">10</span> characters remaining
+    </form>
+    <script>
+        $(document).ready(function () {
+            $('#textarea').keyup(function () {
+                var maxLength = $(this).attr('maxlength');
+                var currentLength = $(this).val().length;
+                var charactersRemaining = maxLength - currentLength;
+                $('#charCount').text(charactersRemaining);
+            });
+        });
+    </script>
+    <br /><br />
+    <!--Hide Paragraph-->
+    <p id="fadeParagraph">Click this paragraph to see it fade.</p>
+    <script>
+        $(document).ready(function () {
+            $('#fadeParagraph').click(function () {
+                $(this).fadeOut(3000);
+            });
+        });
+
+    </script>
+    <br /><br />
+    <!--Animated object-->
+    <button id="btn1">Animate height & width</button>
+    <button id="btn2">Reset</button>
+    <div id="box" style="background: #ccc; height: 100px; width: 100px; margin: 6px;"></div>
+    <script>
+        $(document).ready(function () {
+            $('#btn1').click(function () {
+                $('#box').animate({ height: '200px', width: '200px' }, 'slow');
+            });
+
+            $('#btn2').click(function () {
+                $('#box').animate({ height: '100px', width: '100px' }, 'slow');
+            });
+        });
+
+    </script>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <!--Scroll-->
+    <button id="scrollToTopBtn">Scroll to Top</button>
+    <div style="height: 2000px;">Scroll down to see the effect</div>
+
+    <script>
+        $(document).ready(function () {
+            $('#scrollToTopBtn').on('click', function () {
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            });
+        });
+    </script>
+
+
+</body>
+</html>
